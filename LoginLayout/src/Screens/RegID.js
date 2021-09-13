@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import "react-native-gesture-handler";
-import React, { useState } from "react";
+import React, { Component, useState, createRef } from "react";
 import {
   StyleSheet,
   Text,
@@ -8,35 +8,72 @@ import {
   Image,
   TextInput,
   Button,
+  KeyboardAvoidingView,
+  Keyboard,
   TouchableOpacity,
+  ScrollView,
 } from "react-native";
 
+import Loader from './Loader';
+import RegPassword from './RegPassword';
 
 export default function Register({navigation}) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
- 
+  const [email, setEmail] = useState('');
+  const [errortext, setErrortext] = useState('');
+  const [loading, setLoading] = useState(false);
+  const emailInputRef = createRef();
+  const passwordInputRef = createRef();
+
+  const handleSubmitButton = () => {
+    setErrortext('');
+    if (!email) {
+      alert('Email을 입력해 주세요.');
+      return;
+    }
+    setLoading(true);
+    navigation.navigate("RegPassword", {
+      email: email
+    });
+  };
+
   return (
       <View style={styles.container}>
   
         <StatusBar style="auto" />
 
         <Text>이메일을 입력해 주세요</Text>
-
-        <View style={styles.inputView}>
-          <TextInput
-            style={styles.TextInput}
-            placeholder="email"
-            placeholderTextColor="#222222"
-            onChangeText={(email) => setEmail(email)}
-          />
-        </View>
-
-  
-        <TouchableOpacity style={styles.NextBtn} onPress={() =>navigation.navigate('RegPassword')}>
-          <Text style={styles.TextInput}>다음</Text>
-          
-        </TouchableOpacity>
+        
+        <KeyboardAvoidingView enabled>
+          <View style={styles.inputView}>
+            <TextInput
+              style={styles.TextInput}
+              placeholder="email"
+              placeholderTextColor="#222222"
+              onChangeText={(email) => setEmail(email)}
+              keyboardType="email-address"
+              //ref={emailInputRef}
+              returnKeyType="next"
+              onSubmitEditing={() =>
+                passwordInputRef.current &&
+                passwordInputRef.current.focus()
+              }
+              blurOnSubmit={false}
+            />
+          </View>
+          {errortext != '' ? (
+            <Text style={styles.errorTextStyle}>
+              {errortext}
+            </Text>
+          ) : null}
+    
+          <TouchableOpacity 
+            style={styles.NextBtn}
+            activeOpacity = {0.5} 
+            onPress={handleSubmitButton}>
+            <Text style={styles.TextInput}>다음</Text>
+            
+          </TouchableOpacity>
+        </KeyboardAvoidingView>
       </View>
   );
 }
@@ -81,5 +118,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "#555555",
+  },
+  errorTextStyle: {
+    color: 'red',
+    textAlign: 'center',
+    fontSize: 14,
   },
 });

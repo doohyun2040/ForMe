@@ -1,14 +1,18 @@
+import { StatusBar } from "expo-status-bar";
+import "react-native-gesture-handler";
 // Import React and Component
 import React, {useState, useEffect} from 'react';
 import {ActivityIndicator, View, StyleSheet, Image} from 'react-native';
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
+//import {
+//  widthPercentageToDP as wp,
+//  heightPercentageToDP as hp,
+//} from 'react-native-response-screens';
 
-import AsyncStorage from '@react-native-community/async-storage';
+//import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const SplashScreen = ({navigation}) => {
+
+export default function SplashScreen({navigation}){
   //State for ActivityIndicator animation
   const [animating, setAnimating] = useState(true);
 
@@ -19,7 +23,7 @@ const SplashScreen = ({navigation}) => {
       //If not then send for Authentication
       //else send to Home Screen
       AsyncStorage.getItem('user_id').then((value) =>
-        navigation.replace(value === null ? 'Auth' : 'DrawerNavigationRoutes'),
+        navigation.replace(value === null ? 'Auth' : 'Home'),
       );
     }, 3000);
   }, []);
@@ -27,8 +31,8 @@ const SplashScreen = ({navigation}) => {
   return (
     <View style={styles.container}>
       <Image
-        source={require('../src/Images/SplashScreen.jpg')} //여기에 스플래쉬 스크린 사진 넣기
-        style={{width: wp(55), resizeMode: 'contain', margin: 30}}
+        source={require('./../Images/Splashscreen.png')}
+        style={{width: '100%', resizeMode: 'contain', margin: 30}}
       />
       <ActivityIndicator
         animating={animating}
@@ -39,8 +43,6 @@ const SplashScreen = ({navigation}) => {
     </View>
   );
 };
-
-export default SplashScreen;
 
 const styles = StyleSheet.create({
   container: {
