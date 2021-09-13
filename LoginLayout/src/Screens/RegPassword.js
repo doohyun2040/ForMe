@@ -45,8 +45,8 @@ export default function Register({navigation,route}) {
       formBody.push(encodedKey + '=' + encodedValue);
     }
     formBody = formBody.join('&');
-    
-    fetch('http://172.30.1.60:19002/api/user/register', {
+    /*
+    fetch('http://localhost:19002/api/user/register', {
       method: 'POST',
       body: formBody,
       headers: {
@@ -54,15 +54,22 @@ export default function Register({navigation,route}) {
         'application/x-www-form-urlencoded;charset=UTF-8',
       },
     })
+    */
+   fetch('url', { //url 기입
+     method: 'POST',
+     body: JSON.stringify(dataToSend),
+     headers: {
+       'Content-Type' : 'application/json',
+     },
+   })
       .then((response) => {
         response.json();
-        console.log('hi',JSON.stringify(response))
-        console.log(response.text())
+        console.log('hi')
+        console.log(response)
         console.log(response.json())
       })
       .then((responseJson) => {
         setLoading(false);
-        console.log('oh')
         // If server response message same as Data Matched
         if (responseJson.status === 'success') {
           setIsRegistraionSuccess(true);

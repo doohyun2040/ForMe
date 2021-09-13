@@ -54,13 +54,15 @@ export default function Login({navigation}) {
     }
     formBody = formBody.join('&');
 
-    fetch('http://localhost:19000/api/user/login' , { //이 주소 음 잘 모르겠음
+    fetch('url' , { //요청 url 기입
       method: 'POST' ,
-      body: formBody,
+      //body: formBody,
+      body: JSON.stringify(dataToSend),
       headers: {
         'Content-Type': 
-        'application/x-www-form-urlencoded;charset=UTF-8',
+        //'application/x-www-form-urlencoded;charset=UTF-8',
         // email=email1&password=password1
+        'application/json'
       },
 
     })

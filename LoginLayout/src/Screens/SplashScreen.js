@@ -31,8 +31,8 @@ export default function SplashScreen({navigation}){
   return (
     <View style={styles.container}>
       <Image
-        source={require('./../Images/Google.jpg')}
-        style={{width: '90%', resizeMode: 'contain', margin: 30}}
+        source={require('./../Images/Splashscreen.png')}
+        style={{width: '100%', resizeMode: 'contain', margin: 30}}
       />
       <ActivityIndicator
         animating={animating}

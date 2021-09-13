@@ -1,7 +1,7 @@
 
 import { StatusBar } from "expo-status-bar";
 import "react-native-gesture-handler";
-import React, { useState } from "react";
+import React, { useState, Component } from "react";
 import {
   StyleSheet,
   Text,
@@ -21,22 +21,22 @@ export default function Home({navigation}) {
   
         <StatusBar style="auto" />
 
+        <Image source = {require('C:/FrontEnd/ForMe/LoginLayout/src/Images/drawable-hdpi/13_13.png')} style={styles.logo} />
+
         <TouchableOpacity style={styles.Kakao} >
           <Image source={require('./../Images/Kakaotalk.jpg')} style={styles.icon} />
-          <Text style={styles.TextInput_Black}>Kakao</Text>
+          <Text style={styles.TextInput_Black}>카카오톡으로 계속하기</Text>
         </TouchableOpacity>
 
-        <Text>OR</Text>
+        <Text style={{color: "#9d9d9d", fontSize: 14}}>또는</Text>
 
         <TouchableOpacity style={styles.Google} >
-          <Image source={require('./../Images/Google.jpg')} style={styles.icon} />
-          <Text style={styles.TextInput_White}>Google</Text>
+          <Image source={require('C:/FrontEnd/ForMe/LoginLayout/src/Images/drawable-hdpi/979.png')} style={styles.Googleicon}/>
         </TouchableOpacity>
         
 
         <TouchableOpacity style={styles.Naver} >
-          <Image source={require('./../Images/Naver.png')} style={styles.icon} />
-          <Text style={styles.TextInput_White}>Naver</Text>
+          <Image source={require('C:/FrontEnd/ForMe/LoginLayout/src/Images/drawable-hdpi/978.png')} style={styles.Navericon} />
         </TouchableOpacity>
 
         <View style={styles.row}>
@@ -59,61 +59,46 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
  
-  image: {
-    marginBottom: 40,
-  },
- 
   inputView: {
     backgroundColor: "#5CD1E5",
     borderRadius: 30,
     width: "70%",
     height: 40,
     marginBottom: 20,
- 
     alignItems: "center",
   },
   Naver: {
-    paddingHorizontal: 80,
-    paddingVertical: 10,
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderRadius: 5,
-    backgroundColor: "#00C43B",
-    width: "70%",
-    height: 40,
+    borderRadius: 35,
+    width: 45,
+    height: 45,
     marginTop: 20,
-    marginBottom: 20,
- 
     alignItems: "center",
+  },
+  Navericon: {
+    width:"100%",
+    height:"100%"
   },
   Kakao: {
-    paddingHorizontal: 80,
-    paddingVertical: 10,
     flexDirection: 'row',
     alignItems: 'center',
-    borderRadius: 5,
-    backgroundColor: "#f9e000",
-    width: "70%",
-    height: 40,
-    marginTop: 100,
-    marginBottom: 20,
+    borderRadius: 4,
+    backgroundColor: "#fee100",
+    width: 325,
+    height: 55,
+    marginTop: 30,
  
-    alignItems: "center",
   },
   Google: {
-    paddingHorizontal: 80,
-    paddingVertical: 10,
     flexDirection: 'row',
-    alignItems: 'center',
-    borderRadius: 5,
-    backgroundColor: "#012e67",
-    width: "70%",
-    height: 40,
+    borderRadius: 35,
+    width: 45,
+    height: 45,
     marginTop: 20,
-    marginBottom: 20,
-    color: "#FFFFFF",
- 
     alignItems: "center",
+  },
+  Googleicon: {
+    width:"100%",
+    height:"100%"
   },
  
   TextInput_White: {
@@ -121,22 +106,30 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 5,
     color: "#FFFFFF",
+    fontSize: 16
   },
   TextInput_Black: {
-    height: 30,
+    height: 19,
     flex: 1,
-    padding: 5,
-    color: "#222222",
+    width: 142,
+    color: "#363636",
+    alignItems: 'center',
+    fontSize: 16,
   },
   row: {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: "60%",
-    marginBottom: 130
+    marginBottom: 20
   },
   icon: {
-    width: 25,
-    height: 25
+    width: 39,
+    height: 36
   },
+  logo: {
+    marginTop: 195.3,
+    width: 85,
+    height: 79
+  }
 });
