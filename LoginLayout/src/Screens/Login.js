@@ -44,24 +44,12 @@ export default function Login({navigation}) {
     setLoading(true);
     //data format
     let dataToSend = {email: email, password: password}; //dict
-    let formBody = [];
-
-    //email, password key, value encoding
-    for (let key in dataToSend) {
-      let encodedKey = encodeURIComponent(key);
-      let encodedValue = encodeURIComponent(dataToSend[key]);
-      formBody.push(encodedKey + '=' + encodedValue); // email = ~~~~~
-    }
-    formBody = formBody.join('&');
 
     fetch('url' , { //요청 url 기입
       method: 'POST' ,
-      //body: formBody,
       body: JSON.stringify(dataToSend),
       headers: {
         'Content-Type': 
-        //'application/x-www-form-urlencoded;charset=UTF-8',
-        // email=email1&password=password1
         'application/json'
       },
 
@@ -91,14 +79,16 @@ export default function Login({navigation}) {
   return (
       <View style={styles.container}>
         <Loader loading={loading} />
+          <Image source = {require('./../Images/drawable-hdpi/13_13.png')} style={styles.logo} />
           <View>
             <KeyboardAvoidingView enabled>
               <StatusBar style="auto" />
+
               <View style={styles.inputView}>
                 <TextInput
                   style={styles.TextInput}
-                  placeholder="Email"
-                  placeholderTextColor="#222222"
+                  placeholder="이메일 주소"
+                  placeholderTextColor="#9d9d9d"
                   onSubmitEditing={() =>
                     passwordInputRef.current &&
                     passwordInputRef.current.focus()
@@ -114,8 +104,8 @@ export default function Login({navigation}) {
               <View style={styles.inputView}>
                 <TextInput
                   style={styles.TextInput}
-                  placeholder="Password"
-                  placeholderTextColor="#222222"
+                  placeholder="비밀번호"
+                  placeholderTextColor="#9d9d9d"
                   secureTextEntry={true}
                   keyboardType = "default"
                   ref = {passwordInputRef}
@@ -136,8 +126,14 @@ export default function Login({navigation}) {
                 style={styles.loginBtn}
                 activeOpacity={0.8}
                 onPress={handleSubmitPress}>
-                <Text style={styles.TextInput}>다음</Text>
-                
+                <Text style={styles.TextInput_1}>로그인</Text>
+              </TouchableOpacity>
+              
+              <TouchableOpacity 
+                style={styles.RegBtn}
+                activeOpacity={0.8}
+                onPress={() =>navigation.navigate('Register')}>
+                <Text style={styles.TextInput}>아이디, 비밀번호 찾기</Text>
               </TouchableOpacity>
             </KeyboardAvoidingView>
           </View>
@@ -153,41 +149,60 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
  
+  logo: {
+    marginTop: '24.05%', // 195.3/812
+    width: '22.4%', // 84/ 375
+    height: '14%', // 79/812
+    alignItems: 'center',
+    marginBottom: 41 // 43/812
+  },
+
   inputView: {
+    //flex: 0.3,
     backgroundColor: "#FFFFFF",
-    borderRadius: 30,
-    width: "70%",
-    height: 40,
+    borderRadius: 4,
+    width: 325,
+    height: 55,
     marginBottom: 20,
-    borderColor: "black",
-    borderBottomLeftRadius: 10/2,
-    borderBottomRightRadius: 10/2,
-    borderTopLeftRadius: 10/2,
-    borderTopRightRadius: 10/2,
-    borderBottomWidth: 2,
-    borderRightWidth: 2,
-    borderTopWidth: 2,
-    borderLeftWidth: 2,
- 
-    alignItems: "center",
+    borderColor: "#e2e2e2",
+    borderBottomWidth: 1,
+    borderRightWidth: 1,
+    borderTopWidth: 1,
+    borderLeftWidth: 1,
+    paddingLeft: 21,
+    paddingTop: 10
   },
  
  
   TextInput: {
     height: 30,
-    flex: 1,
-    padding: 10,
-    marginLeft: 20,
+    fontSize: 16,
+  },
+  TextInput_1: {
+    height: 30,
+    fontSize: 16,
+    color: '#ffffff'
   },
 
   loginBtn: {
-    width: "70%",
+    //flex: 0.2,
+    width: "100%",
     borderRadius: 10,
-    height: 50,
+    height: 55,
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 100,
-    backgroundColor: "#555555"
+    backgroundColor: "#00becd",
+    borderBottomLeftRadius: 4,
+    borderBottomRightRadius: 4,
+    borderTopLeftRadius: 4,
+    borderTopRightRadius: 4,
+    marginBottom: 20
+  },
+  RegBtn: {
+    //flex: 0.2,
+    width: "100%",
+    height: 20,
+    marginLeft: 180
   },
   errorTextStyle: {
     color: 'red',

@@ -24,7 +24,7 @@ export default function Register({navigation,route}) {
     isRegistrationSuccess,
     setIsRegistraionSuccess
   ] = useState(false);
- 
+  
   const passwordInputRef = createRef();
 
   const handleSubmitButton = () => {
@@ -38,23 +38,6 @@ export default function Register({navigation,route}) {
       email: email,
       password: password,
     };
-    let formBody = [];
-    for (let key in dataToSend) {
-      let encodedKey = encodeURIComponent(key);
-      let encodedValue = encodeURIComponent(dataToSend[key]);
-      formBody.push(encodedKey + '=' + encodedValue);
-    }
-    formBody = formBody.join('&');
-    /*
-    fetch('http://localhost:19002/api/user/register', {
-      method: 'POST',
-      body: formBody,
-      headers: {
-        'Content-Type' :
-        'application/x-www-form-urlencoded;charset=UTF-8',
-      },
-    })
-    */
    fetch('url', { //url 기입
      method: 'POST',
      body: JSON.stringify(dataToSend),
@@ -112,16 +95,15 @@ export default function Register({navigation,route}) {
       <View style={styles.container}>
         <Loader loading={loading}/>
         <StatusBar style="auto" />
-
-        <Text>비밀번호입력</Text>
-        <Text>{route.params.email}</Text>
         <KeyboardAvoidingView enabled>
+        <Text style={styles.image}>🍭</Text>
+        <Text style={styles.text}>비밀번호를 입력해주세요.</Text>
           <View style={styles.inputView}>
             <TextInput
-              style={styles.TextInput}
+              style={styles.TextInput_inside}
               placeholder="비밀번호 입력"
               secureTextEntry={true}
-              placeholderTextColor="#222222"
+              placeholderTextColor="#9d9d9d"
               onChangeText={(password) => setPassword(password)}
               ref={passwordInputRef}
               returnKeyType="next"
@@ -133,10 +115,10 @@ export default function Register({navigation,route}) {
 
           <View style={styles.inputView}>
             <TextInput
-              style={styles.TextInput}
+              style={styles.TextInput_inside}
               placeholder="비밀번호 확인"
               secureTextEntry={true}
-              placeholderTextColor="#222222"
+              placeholderTextColor="#9d9d9d"
             />
           </View>
           {errortext != '' ? (
@@ -146,7 +128,7 @@ export default function Register({navigation,route}) {
             ) : null}
     
           <TouchableOpacity style={styles.NextBtn} onPress={handleSubmitButton}>
-            <Text style={styles.TextInput}>Register</Text>
+            <Text style={styles.TextInput}>다음</Text>
             
           </TouchableOpacity>
         </KeyboardAvoidingView>
@@ -161,39 +143,48 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
- 
+  image: {
+    width: 60,
+    height: 66,
+    fontSize: 50,
+    marginBottom: 6
+  },
+  text: {
+    fontSize: 22,
+    color: '#2b2a2a',
+    marginBottom: 33
+  },
+  TextInput_inside: {
+    height: 30,
+    flex: 1,
+    fontSize: 16,
+    paddingLeft: 25
+  },
   inputView: {
     backgroundColor: "#FFFFFF",
     borderRadius: 30,
-    width: "70%",
-    height: 40,
+    width: 325,
+    height: 111,
     marginBottom: 20,
-    borderColor: "black",
-    borderBottomLeftRadius: 10/2,
-    borderBottomRightRadius: 10/2,
-    borderTopLeftRadius: 10/2,
-    borderTopRightRadius: 10/2,
-    borderBottomWidth: 2,
-    borderRightWidth: 2,
-    borderTopWidth: 2,
-    borderLeftWidth: 2,
- 
-    alignItems: "center",
+    borderColor: "#363636",
+    borderBottomWidth: 3,
+    borderRightWidth: 3,
+    borderTopWidth: 3,
+    borderLeftWidth: 3,
   },
  
   TextInput: {
     height: 30,
     flex: 1,
-    padding: 10,
+    fontSize: 16,
   },
-
   NextBtn: {
-    width: "70%",
-    borderRadius: 0,
-    height: 50,
+    width: 360,
+    height: 83,
+    paddingTop: 27,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#555555",
+    backgroundColor: "#dedede",
   },
   errorTextStyle: {
     color: 'red',

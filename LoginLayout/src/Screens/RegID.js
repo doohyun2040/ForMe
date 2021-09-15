@@ -40,15 +40,15 @@ export default function Register({navigation}) {
       <View style={styles.container}>
   
         <StatusBar style="auto" />
-
-        <Text>이메일을 입력해 주세요</Text>
-        
         <KeyboardAvoidingView enabled>
+        <Text style={styles.image}>🥘</Text>
+        <Text style={styles.text}>이메일을 입력해 주세요.</Text>
+        
           <View style={styles.inputView}>
             <TextInput
-              style={styles.TextInput}
-              placeholder="email"
-              placeholderTextColor="#222222"
+              style={styles.TextInput_inside}
+              placeholder="이메일"
+              placeholderTextColor="#9d9d9d"
               onChangeText={(email) => setEmail(email)}
               keyboardType="email-address"
               //ref={emailInputRef}
@@ -85,39 +85,48 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
- 
+  image: {
+    width: 60,
+    height: 66,
+    fontSize: 50,
+    marginBottom: 6
+  },
+  text: {
+    fontSize: 22,
+    color: '#2b2a2a',
+    marginBottom: 33
+  },
   inputView: {
     backgroundColor: "#FFFFFF",
     borderRadius: 30,
-    width: "70%",
-    height: 40,
+    width: 325,
+    height: 111,
     marginBottom: 20,
-    borderColor: "black",
-    borderBottomLeftRadius: 10/2,
-    borderBottomRightRadius: 10/2,
-    borderTopLeftRadius: 10/2,
-    borderTopRightRadius: 10/2,
-    borderBottomWidth: 2,
-    borderRightWidth: 2,
-    borderTopWidth: 2,
-    borderLeftWidth: 2,
- 
-    alignItems: "center",
+    borderColor: "#363636",
+    borderBottomWidth: 3,
+    borderRightWidth: 3,
+    borderTopWidth: 3,
+    borderLeftWidth: 3,
   },
  
+  TextInput_inside: {
+    height: 30,
+    flex: 1,
+    fontSize: 16,
+    paddingLeft: 25
+  },
   TextInput: {
     height: 30,
     flex: 1,
-    padding: 10,
+    fontSize: 16,
   },
-
   NextBtn: {
-    width: "70%",
-    borderRadius: 10,
-    height: 50,
+    width: 360,
+    height: 83,
+    paddingTop: 27,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#555555",
+    backgroundColor: "#dedede",
   },
   errorTextStyle: {
     color: 'red',
