@@ -1,0 +1,76 @@
+import { StatusBar} from 'react-native';
+import React, { useState } from 'react';
+import { Button, Indicator,BackButton } from '../../components';
+import MultiSlider from '@ptomasroos/react-native-multi-slider'
+import { Container, StyledText, Box, Images } from '../../theme';
+import { Pref_2_image } from '../../Images'
+import styled from 'styled-components/native';
+
+const Circle = styled.View`
+ height : 16px;
+ width : 16px;
+ border-radius : 8px;
+ background-color : #ff7300;
+`;
+
+const Pref_2_diff = ({navigation, route}) => {
+    const email = route.params.email;
+    const password = route.params.password;
+    const time = route.params.time;
+    const [multisliderValue, setMultisliderValue] = useState([1,5]);
+    const multisliderValuesChange = values => setMultisliderValue(values);
+    const statusbarHeight = StatusBar.currentHeight;
+    
+    return (
+        <>
+        <Box style = {{height : statusbarHeight}}/>
+        <Box style = {{height : 60, width : '100%', flexDirection : 'row'}}>
+            <Box style = {{height : 70, width : '33%'}}>
+            <BackButton onPress = {() => navigation.navigate('time', {email: email, password: password})} />
+            </Box>
+            <Box style = {{height : 70, width : '33%', justifyContent : 'flex-end', alignItems : 'center'}}><Indicator page={2}/></Box>
+            <Box style = {{height : 70, width : '33%'}}></Box>
+        </Box>
+        <Container >
+            <Box style = {{height : 400, alignItems : 'center'}}>
+                <Images source = {Pref_2_image} style = {{width : 58, height : 54, marginBottom : 24.5}} />
+                <StyledText style = {{ fontWeight : 'bold', fontSize : 22, marginBottom : 0, color : '#363636'}}> 어떤 난이도의 </StyledText>
+                <StyledText style = {{ fontWeight : 'bold', fontSize : 22, marginBottom : 0, color : '#363636'}}> 요리를 원하시나요? </StyledText>
+                <StyledText style = {{ fontSize : 12, marginBottom : 20, color : '#ff7300'}}> 범위선택 </StyledText>
+                <MultiSlider
+                        values = {[multisliderValue[0], multisliderValue[1]]}
+                        sliderLength = {250}
+                        onValuesChange = {multisliderValuesChange}
+                        min = {1}
+                        max = {5}
+                        step = {1}
+                        selectedStyle={{
+                            backgroundColor: '#ff7300',
+                          }}
+                        allowOverlap
+                        snapped
+                        customMarker = {Circle}
+                        >
+                </MultiSlider>
+                <Box style = {{marginLeft : 5, width : 310, flexDirection : 'row', justifyContent : 'space-evenly'}}>
+                <StyledText style = {{ fontSize : 12, fontWeight : 'bold', color : '#707070' }}>라면</StyledText>
+                <StyledText style = {{ fontSize : 12, fontWeight : 'bold', color : '#707070' }}>스파게티</StyledText>
+                <StyledText style = {{ fontSize : 12, fontWeight : 'bold', color : '#707070' }}>된장찌개</StyledText>
+                <StyledText style = {{ fontSize : 12, fontWeight : 'bold', color : '#707070' }}>닭볶음탕</StyledText>
+                <StyledText style = {{ fontSize : 12, fontWeight : 'bold', color : '#707070' }}>전부 다</StyledText>
+                </Box>    
+            </Box>
+            <Box style = {{ height : 100}}/>
+        </Container>
+        <Button 
+            title = "다음"
+            onPress={() => navigation.navigate('country', {email: email, password: password, time: time, diff: multisliderValue})}
+            style = {{ height : 83, width : '100%'}}
+        >
+        </Button>
+        </>
+    );
+
+};
+
+export default Pref_2_diff;
