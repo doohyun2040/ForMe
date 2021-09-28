@@ -45,16 +45,16 @@ export default function Login({navigation}) {
     }
     setLoading(true);
     //data format
-    let dataToSend = {email: email, password: password}; //dict
-
-    fetch('url' , { //요청 url 기입
-      method: 'POST' ,
-      body: JSON.stringify(dataToSend),
-      headers: {
-        'Content-Type': 
-        'application/json'
-      },
-
+    let dataToSend = {
+      email: email,
+      password: password
+    };
+   fetch('http://localhost:8080/signup', { //url 기입
+     method: 'POST',
+     body: JSON.stringify(dataToSend),
+     headers: {
+       'Content-Type' : 'application/json',
+     },
     })
       .then((response) => response.json()) //json 전환
       .then((responseJson) => {

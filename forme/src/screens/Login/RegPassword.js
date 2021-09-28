@@ -34,7 +34,60 @@ export default function Register({navigation,route}) {
       return;
     }
     setLoading(false);
-    navigation.navigate("PrefSel", {email:email, password:password})
+  
+    let dataToSend = {
+      email: email,
+      password: password
+    };
+   fetch('http://localhost:8080/signup', { //url 기입
+     method: 'POST',
+     body: JSON.stringify(dataToSend),
+     headers: {
+       'Content-Type' : 'application/json',
+     },
+   })
+      .then((response) => {
+        response.json();
+      })
+      .then((responseJson) => {
+        setLoading(false);
+        // If server response message same as Data Matched
+        if (responseJson.status === 'success') {
+          setIsRegistraionSuccess(true);
+          console.log(
+            'Registration Successful. Please Login to proceed'
+          );
+        } else {
+          setErrortext(responseJson.msg);
+        }
+      })
+      .catch((error) => {
+        //Hide Loader
+        setLoading(false);
+        console.error(error);
+
+      });
+    
+  };
+  if (isRegistrationSuccess) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: '#307ecc',
+          justifyContent: 'center',
+        }}>
+        <Text style={styles.successTextStyle}>
+          Registration Successful
+        </Text>
+        <TouchableOpacity
+          style={styles.buttonStyle}
+          activeOpacity={0.5}
+          onPress={() => props.navigation.navigate('landing')}>
+          <Text style={styles.buttonTextStyle}>Login Now</Text>
+        </TouchableOpacity>
+      </View>
+    );
   
   }
   return (

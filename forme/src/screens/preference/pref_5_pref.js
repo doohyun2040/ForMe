@@ -38,7 +38,7 @@ const Pref_5_pref = ({navigation, route}) => {
         spicy: spicy,
         pref: Selected
       };
-     fetch('url', { //url 기입
+     fetch('http://localhost:8080/', { //url 기입
        method: 'POST',
        body: JSON.stringify(dataToSend),
        headers: {
