@@ -44,7 +44,7 @@ public class UserController {
         String pw = body.get("password");
 
         User user = userService.login(email, pw);
-        List<Recipe> recipeList = recipeService.findAllRecipe();
+        List<Recipe> recipeList = recipeService.findRecipeByPreference(user.getPreference());
 
         Map<String, Object> returnMap = new HashMap<>();
 

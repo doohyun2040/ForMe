@@ -7,6 +7,7 @@ import ForMe.Core.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -19,6 +20,21 @@ public class RecipeService {
 
     public List<Recipe> findAllRecipe() {
         return recipeRepository.findAll();
+    }
+
+    public List<Recipe> findRecipeByPreference(String preferences) {
+        String[] preference = preferences.split(",");
+        List<Recipe> recipes = findAllRecipe();
+        List<Recipe> returnRecipes = new ArrayList<Recipe>();
+
+        for (Recipe recipe : recipes) {
+            for (String s : preference) {
+                if(recipe.getIngredients().contains(s) && !returnRecipes.contains(recipe)) {
+                    returnRecipes.add(recipe);
+                }
+            }
+        }
+        return returnRecipes;
     }
 
     public String findRecipeName(String id) {
