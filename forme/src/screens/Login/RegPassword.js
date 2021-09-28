@@ -30,66 +30,12 @@ export default function Register({navigation,route}) {
   const handleSubmitButton = () => {
     setErrortext('');
     if (!password) {
-      alert('Please fill Password');
+      alert('비밀번호를 입력해 주세요.');
       return;
     }
     setLoading(false);
-    let dataToSend = {
-      email: email,
-      password: password,
-    };
-   fetch('url', { //url 기입
-     method: 'POST',
-     body: JSON.stringify(dataToSend),
-     headers: {
-       'Content-Type' : 'application/json',
-     },
-   })
-      .then((response) => {
-        response.json();
-        console.log('hi')
-        console.log(response)
-        console.log(response.json())
-      })
-      .then((responseJson) => {
-        setLoading(false);
-        // If server response message same as Data Matched
-        if (responseJson.status === 'success') {
-          setIsRegistraionSuccess(true);
-          console.log(
-            'Registration Successful. Please Login to proceed'
-          );
-        } else {
-          setErrortext(responseJson.msg);
-        }
-      })
-      .catch((error) => {
-        //Hide Loader
-        setLoading(false);
-        console.error(error);
-
-      });
-    
-  };
-  if (isRegistrationSuccess) {
-    return (
-      <View
-        style={{
-          flex: 1,
-          backgroundColor: '#307ecc',
-          justifyContent: 'center',
-        }}>
-        <Text style={styles.successTextStyle}>
-          Registration Successful
-        </Text>
-        <TouchableOpacity
-          style={styles.buttonStyle}
-          activeOpacity={0.5}
-          onPress={() => props.navigation.navigate('Login')}>
-          <Text style={styles.buttonTextStyle}>Login Now</Text>
-        </TouchableOpacity>
-      </View>
-    );
+    navigation.navigate("PrefSel", {email:email, password:password})
+  
   }
   return (
       <View style={styles.container}>

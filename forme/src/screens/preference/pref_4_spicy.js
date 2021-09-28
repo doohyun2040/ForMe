@@ -4,7 +4,12 @@ import { Button, PrefButton, Indicator, BackButton } from '../../components';
 import { Container, StyledText, Box, Images } from '../../theme';
 import { Pref_4_image } from '../../Images'
 
-const Pref_4_spicy = ({navigation}) => {
+const Pref_4_spicy = ({navigation, route}) => {
+    const email = route.params.email;
+    const password = route.params.password;
+    const time = route.params.time;
+    const diff = route.params.diff;
+    const country = route.params.country;
     const [Selected,setSelected] = useState([false,false,false,false]);
     const statusbarHeight = StatusBar.currentHeight;
 
@@ -13,7 +18,7 @@ const Pref_4_spicy = ({navigation}) => {
         <Box style = {{height : statusbarHeight}}/>
         <Box style = {{height : 60, width : '100%', flexDirection : 'row'}}>
             <Box style = {{height : 70, width : '33%'}}>
-                <BackButton onPress = {() => navigation.navigate('country')} />
+                <BackButton onPress = {() => navigation.navigate('country',{email: email, password: password, time: time, diff:diff})} />
             </Box>
             <Box style = {{height : 70, width : '33%', justifyContent : 'flex-end', alignItems : 'center'}}><Indicator page={4}/></Box>
             <Box style = {{height : 70, width : '33%'}}></Box>
@@ -45,7 +50,7 @@ const Pref_4_spicy = ({navigation}) => {
         </Container>
         <Button 
             title = "다음"
-            onPress={() => navigation.navigate('pref')}
+            onPress={() => navigation.navigate('pref', {email: email, password: password, time: time, diff: diff, country: country, spicy: Selected})}
             style = {{ height : 83, width : '100%'}}
             isFinished = {Selected[0]+Selected[1]+Selected[2]+Selected[3]}
         >

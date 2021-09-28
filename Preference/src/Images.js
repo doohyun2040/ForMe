@@ -1,3 +1,4 @@
+//Import images
 import Pref_1_image from '../assets/icons/pref_1_image.png';
 import Pref_2_image from '../assets/icons/pref_2_image.png';
 import Pref_3_image from '../assets/icons/pref_3_image.png';

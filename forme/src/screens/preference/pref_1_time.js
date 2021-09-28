@@ -13,7 +13,9 @@ const Circle = styled.View`
  background-color : #ff7300;
 `;
 
-const Pref_1_time = ({navigation}) => {
+const Pref_1_time = ({navigation, route}) => {
+    const email = route.params.email;
+    const password = route.params.password;
     const [multisliderValue, setMultisliderValue] = useState([1,5]);
     const multisliderValuesChange = values => setMultisliderValue(values);
     const statusbarHeight = StatusBar.currentHeight;
@@ -23,7 +25,7 @@ const Pref_1_time = ({navigation}) => {
         <Box style = {{height : statusbarHeight}}/>
         <Box style = {{height : 60, width : '100%', flexDirection : 'row'}}>
             <Box style = {{height : 70, width : '33%'}}>
-                <BackButton onPress = {() => navigation.navigate('PrefSel')} />
+                <BackButton onPress = {() => navigation.navigate('PrefSel',{email: email, password: password})} />
             </Box>
             <Box style = {{height : 70, width : '33%', justifyContent : 'flex-end', alignItems : 'center'}}><Indicator page={1}/></Box>
             <Box style = {{height : 70, width : '33%'}}></Box>
@@ -61,7 +63,7 @@ const Pref_1_time = ({navigation}) => {
         </Container>
         <Button 
             title = "다음"
-            onPress={() => navigation.navigate('diff')}
+            onPress={() => navigation.navigate('diff', {email: email, password: password, time: multisliderValue})}
             style = {{ height : 83, width : '100%'}}
         >
         </Button>

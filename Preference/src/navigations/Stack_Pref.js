@@ -2,8 +2,10 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {Pref_1_time, Pref_2_diff, Pref_3_country, Pref_4_spicy, Pref_5_pref} from '../screens';
 
+//StackNavigator
 const Stack = createStackNavigator();
 
+//preference stack time-diff-country-spicy-pref
 const Stack_Pref = () => {
     return <Stack.Navigator 
         initialRouteName="시간" 

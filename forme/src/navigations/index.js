@@ -19,7 +19,7 @@ const Navigation = () => {
 
     return (
         <NavigationContainer>
-            {main? <Stack_Pref/> : <Tab_landing/>}
+            {main? <Login/> : <Tab_landing/>}
         </NavigationContainer>
     )
 }

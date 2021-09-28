@@ -13,9 +13,10 @@ const Circle = styled.View`
  background-color : #ff7300;
 `;
 
+
 const Pref_1_time = ({navigation}) => {
-    const [multisliderValue, setMultisliderValue] = useState([1,5]);
-    const multisliderValuesChange = values => setMultisliderValue(values);
+    const [multisliderValue1, setMultisliderValue1] = useState([1,5]);
+    const multisliderValuesChange = values => setMultisliderValue1(values);
 
     return (
         <>
@@ -34,7 +35,7 @@ const Pref_1_time = ({navigation}) => {
                 <StyledText style = {{ fontWeight : 'bold', fontSize : 22, marginBottom : 0, color : '#363636'}}> 얼만큼 걸리면 좋을까요? </StyledText>
                 <StyledText style = {{ fontSize : 12, marginBottom : 20, color : '#ff7300'}}> 범위선택 </StyledText>
                 <MultiSlider
-                        values = {[multisliderValue[0], multisliderValue[1]]}
+                        values = {[multisliderValue1[0], multisliderValue1[1]]}
                         sliderLength = {250}
                         onValuesChange = {multisliderValuesChange}
                         min = {1}
@@ -60,7 +61,7 @@ const Pref_1_time = ({navigation}) => {
         </Container>
         <Button 
             title = "다음"
-            onPress={() => navigation.navigate('diff')}
+            onPress={() => navigation.navigate('diff', {multisliderValue1 : multisliderValue1})}
             style = {{ height : 83, width : '100%'}}
         >
         </Button>

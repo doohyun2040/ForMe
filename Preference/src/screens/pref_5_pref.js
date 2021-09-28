@@ -4,7 +4,12 @@ import { Button, PrefButton, Indicator, BackButton } from '../components';
 import { Container, StyledText, Box, Images } from '../theme';
 import { Pref_5_image } from '../Images'
 
-const Pref_5_pref = ({navigation}) => {
+const Pref_5_pref = ({navigation, route}) => {
+  const Value1 = route.params.Value1
+  const Value2 = route.params.Value2
+  const Value3 = route.params.Value3
+  const Value4 = route.params.Selected
+
     const [Selected,setSelected] = useState([false,false,false,false,false,false,false,false,false]);
     
     return (
@@ -21,6 +26,7 @@ const Pref_5_pref = ({navigation}) => {
         <Container >
             <Box style = {{height: 400, alignItems : 'center'}}>
                 <Images source = {Pref_5_image} style = {{width : 177, height : 49, marginBottom : 24.5}} />
+                <StyledText style = {{ fontWeight : 'bold', fontSize : 22, marginBottom : 0, color : '#363636'}}> {Value1},{Value2},{Value3.length},{Value4.length} </StyledText>
                 <StyledText style = {{ fontWeight : 'bold', fontSize : 22, marginBottom : 0, color : '#363636'}}> 선호하는 재료를 </StyledText>
                 <StyledText style = {{ fontWeight : 'bold', fontSize : 22, marginBottom : 0, color : '#363636'}}> 선택해주세요! </StyledText>
                 <StyledText style = {{ fontSize : 12, marginBottom : 20, color : '#ff7300'}}> 중복선택 가능 </StyledText>

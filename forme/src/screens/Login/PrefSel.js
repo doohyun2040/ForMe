@@ -1,6 +1,6 @@
 import { StatusBar, TouchableWithoutFeedback} from 'react-native';
 import React, { useState } from 'react';
-import { Button, BackButton } from '../../components';
+import { Button, BackButton, Text } from '../../components';
 import { Container, StyledText, Box, Images } from '../../theme';
 import styled from 'styled-components/native';
 import { PrefSel_1_1, PrefSel_1_2,PrefSel_2_1,PrefSel_2_2 } from '../../Images';
@@ -35,7 +35,9 @@ const SelectButton = ({title, onPress, isSelected, style, image_1, image_2, imag
     )
 }
 
-const PrefSel = ({navigation}) => {
+const PrefSel = ({navigation,route}) => {
+    const email = route.params.email;
+    const password = route.params.password;
     const statusbarHeight = StatusBar.currentHeight;
     const [Selected, setSelected] = useState([false,false]);
 
@@ -50,7 +52,6 @@ const PrefSel = ({navigation}) => {
         <Container >
             <StyledText style = {{fontSize : 22, fontWeight : 'bold', color : '#2b2a2a'}} > 정확한 요리 추천을 위해 </StyledText>
             <StyledText style = {{fontSize : 22, fontWeight : 'bold', color : '#2b2a2a'}} > 질문을 받습니다. </StyledText>
-        
         <Box style = {{flexDirection : 'row'}}>
             <SelectButton title = '다음에 할래요' onPress = {() => setSelected([!Selected[0], false])} isSelected = {Selected[0]} image_1 = {PrefSel_1_1} image_2 = {PrefSel_1_2} imageSize = {{height : 41, width : 50}} />
             <SelectButton title = '네 해볼게요' onPress = {() => setSelected([false, !Selected[1]])} isSelected = {Selected[1]} image_1 = {PrefSel_2_1} image_2 = {PrefSel_2_2} imageSize = {{height : 39, width : 61, marginTop : 15}}/>
@@ -59,7 +60,7 @@ const PrefSel = ({navigation}) => {
         <Button 
             title = "시작하기"
             title_2 = " "
-            onPress={Selected[1]? () => navigation.navigate('time') : () => navigation.navigate('landing')}
+            onPress={Selected[1]? () => navigation.navigate('time', {email: email, password: password}) : () => navigation.navigate('landing')}
             onPress_2 = {() => alert('선택해주세요')}
             style = {{ height : 83, width : '100%'}}
             isFinished = {Selected[0]+Selected[1]}

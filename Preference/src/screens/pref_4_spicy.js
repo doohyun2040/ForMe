@@ -4,7 +4,11 @@ import { Button, PrefButton, Indicator, BackButton } from '../components';
 import { Container, StyledText, Box, Images } from '../theme';
 import { Pref_4_image } from '../Images'
 
-const Pref_4_spicy = ({navigation}) => {
+const Pref_4_spicy = ({navigation, route}) => {
+    const Value1 = route.params.Value1
+    const Value2 = route.params.Value2
+    const Value3 = route.params.Selected
+    
     const [Selected,setSelected] = useState([false,false,false,false]);
 
     return (
@@ -20,6 +24,7 @@ const Pref_4_spicy = ({navigation}) => {
         <Container >
             <Box style = {{height: 400, alignItems : 'center'}}>
                 <Images source = {Pref_4_image} style = {{width : 52, height : 62, marginBottom : 24.5}} />
+                <StyledText style = {{ fontWeight : 'bold', fontSize : 22, marginBottom : 0, color : '#363636'}}> {Value1},{Value2},{Value3.length} </StyledText>
                 <StyledText style = {{ fontWeight : 'bold', fontSize : 22, marginBottom : 0, color : '#363636'}}> 평소 버티는 맵기를 </StyledText>
                 <StyledText style = {{ fontWeight : 'bold', fontSize : 22, marginBottom : 0, color : '#363636'}}> 선택해주세요! </StyledText>
                 <StyledText style = {{ fontSize : 12, marginBottom : 20, color : '#ff7300'}}>  </StyledText>
@@ -42,9 +47,10 @@ const Pref_4_spicy = ({navigation}) => {
             </Box>
             <Box style = {{ height : 100}}/>
         </Container>
+
         <Button 
             title = "다음"
-            onPress={() => navigation.navigate('pref')}
+            onPress={() => navigation.navigate('pref', {Value1: Value1, Value2: Value2, Value3: Value3, Selected:Selected})}
             style = {{ height : 83, width : '100%'}}
             isFinished = {Selected[0]+Selected[1]+Selected[2]+Selected[3]}
         >

@@ -3,6 +3,7 @@ import { TouchableOpacity, View } from 'react-native';
 import styled from 'styled-components/native';
 import { Back } from '../Images';
 
+//Button's fixed pixel
 const Icon = styled.Image`
  width : 49px;
  height : 49px;

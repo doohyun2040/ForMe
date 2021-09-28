@@ -13,7 +13,10 @@ const Circle = styled.View`
  background-color : #ff7300;
 `;
 
-const Pref_2_diff = ({navigation}) => {
+const Pref_2_diff = ({navigation, route}) => {
+    const email = route.params.email;
+    const password = route.params.password;
+    const time = route.params.time;
     const [multisliderValue, setMultisliderValue] = useState([1,5]);
     const multisliderValuesChange = values => setMultisliderValue(values);
     const statusbarHeight = StatusBar.currentHeight;
@@ -23,7 +26,7 @@ const Pref_2_diff = ({navigation}) => {
         <Box style = {{height : statusbarHeight}}/>
         <Box style = {{height : 60, width : '100%', flexDirection : 'row'}}>
             <Box style = {{height : 70, width : '33%'}}>
-            <BackButton onPress = {() => navigation.navigate('time')} />
+            <BackButton onPress = {() => navigation.navigate('time', {email: email, password: password})} />
             </Box>
             <Box style = {{height : 70, width : '33%', justifyContent : 'flex-end', alignItems : 'center'}}><Indicator page={2}/></Box>
             <Box style = {{height : 70, width : '33%'}}></Box>
@@ -61,7 +64,7 @@ const Pref_2_diff = ({navigation}) => {
         </Container>
         <Button 
             title = "다음"
-            onPress={() => navigation.navigate('country')}
+            onPress={() => navigation.navigate('country', {email: email, password: password, time: time, diff: multisliderValue})}
             style = {{ height : 83, width : '100%'}}
         >
         </Button>

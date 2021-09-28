@@ -4,7 +4,11 @@ import { Button, PrefButton, Indicator, BackButton } from '../../components';
 import { Container, StyledText, Box, Images } from '../../theme';
 import { Pref_3_image } from '../../Images'
 
-const Pref_3_country = ({navigation}) => {
+const Pref_3_country = ({navigation,route}) => {
+    const email = route.params.email;
+    const password = route.params.password;
+    const time = route.params.time;
+    const diff = route.params.diff;
     const [Selected,setSelected] = useState([false,false,false,false,false]);
     const statusbarHeight = StatusBar.currentHeight;
 
@@ -13,7 +17,7 @@ const Pref_3_country = ({navigation}) => {
         <Box style = {{height : statusbarHeight}}/>
         <Box style = {{height : 60, width : '100%', flexDirection : 'row'}}>
             <Box style = {{height : 70, width : '33%'}}>
-                <BackButton onPress = {() => navigation.navigate('diff')} />
+                <BackButton onPress = {() => navigation.navigate('diff', {email: email, password: password, time: time})} />
             </Box>
             <Box style = {{height : 70, width : '33%', justifyContent : 'flex-end', alignItems : 'center'}}><Indicator page={3}/></Box>
             <Box style = {{height : 70, width : '33%'}}></Box>
@@ -30,7 +34,7 @@ const Pref_3_country = ({navigation}) => {
                     <PrefButton title = '일식' onPress = {() => setSelected([Selected[0],Selected[1],!Selected[2],Selected[3],Selected[4]])} isSelected = {Selected[2]}></PrefButton>
                 </Box>
                 <Box style = {{flexDirection : 'row', justifyContent : 'center'}}>
-                    <PrefButton title = '인도' onPress = {() => setSelected([Selected[0],Selected[1],Selected[2],!Selected[3],Selected[4]])} isSelected = {Selected[3]}></PrefButton>
+                    <PrefButton title = '아시아' onPress = {() => setSelected([Selected[0],Selected[1],Selected[2],!Selected[3],Selected[4]])} isSelected = {Selected[3]}></PrefButton>
                     <PrefButton title = '양식' onPress = {() => setSelected([Selected[0],Selected[1],Selected[2],Selected[3],!Selected[4]])} isSelected = {Selected[4]}></PrefButton>
                 </Box>
             </Box>
@@ -38,7 +42,7 @@ const Pref_3_country = ({navigation}) => {
         </Container>
         <Button 
             title = "다음"
-            onPress={() => navigation.navigate('spicy')}
+            onPress={() => navigation.navigate('spicy', {email: email, password: password, time: time, diff: diff, country: Selected})}
             style = {{ height : 83, width : '100%'}}
             isFinished = {Selected[0]+Selected[1]+Selected[2]+Selected[3]+Selected[4]}
         >

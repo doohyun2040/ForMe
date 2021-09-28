@@ -4,9 +4,91 @@ import { Button, PrefButton, Indicator, BackButton } from '../../components';
 import { Container, StyledText, Box, Images } from '../../theme';
 import { Pref_5_image } from '../../Images'
 
-const Pref_5_pref = ({navigation}) => {
+const Pref_5_pref = ({navigation, route}) => {
+    const email = route.params.email;
+    const password = route.params.password;
+    const time = route.params.time;
+    const diff = route.params.diff;
+    const country = route.params.country;
+    const spicy = route.params.spicy;
     const [Selected,setSelected] = useState([false,false,false,false,false,false,false,false,false]);
     const statusbarHeight = StatusBar.currentHeight;
+    const [
+      isRegistrationSuccess,
+      setIsRegistraionSuccess
+    ] = useState(false);
+    const [errortext, setErrortext] = useState('');
+    const [loading, setLoading] = useState(false);
+    
+
+    const handleSubmitButton = () => {
+      setErrortext('');
+      if (!password) {
+        alert('비밀번호를 입력해 주세요.');
+        return;
+      }
+      setLoading(false);
+      
+      let dataToSend = {
+        email: email,
+        password: password,
+        time: time,
+        diff: diff,
+        country: country,
+        spicy: spicy,
+        pref: Selected
+      };
+     fetch('url', { //url 기입
+       method: 'POST',
+       body: JSON.stringify(dataToSend),
+       headers: {
+         'Content-Type' : 'application/json',
+       },
+     })
+        .then((response) => {
+          response.json();
+        })
+        .then((responseJson) => {
+          setLoading(false);
+          // If server response message same as Data Matched
+          if (responseJson.status === 'success') {
+            setIsRegistraionSuccess(true);
+            console.log(
+              'Registration Successful. Please Login to proceed'
+            );
+          } else {
+            setErrortext(responseJson.msg);
+          }
+        })
+        .catch((error) => {
+          //Hide Loader
+          setLoading(false);
+          console.error(error);
+  
+        });
+      
+    };
+    if (isRegistrationSuccess) {
+      return (
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: '#307ecc',
+            justifyContent: 'center',
+          }}>
+          <Text style={styles.successTextStyle}>
+            Registration Successful
+          </Text>
+          <TouchableOpacity
+            style={styles.buttonStyle}
+            activeOpacity={0.5}
+            onPress={() => props.navigation.navigate('landing')}>
+            <Text style={styles.buttonTextStyle}>Login Now</Text>
+          </TouchableOpacity>
+        </View>
+      );
+    }
+     
 
     return (
 
@@ -14,7 +96,7 @@ const Pref_5_pref = ({navigation}) => {
         <Box style = {{height : statusbarHeight}}/>
         <Box style = {{height : 60, width : '100%', flexDirection : 'row'}}>
             <Box style = {{height : 70, width : '33%'}}>
-                <BackButton onPress = {() => navigation.navigate('spicy')} />
+                <BackButton onPress = {() => navigation.navigate('spicy', {email: email, password: password, time: time, diff: diff, country: country})} />
             </Box>
             <Box style = {{height : 70, width : '33%', justifyContent : 'flex-end', alignItems : 'center'}}><Indicator page={5}/></Box>
             <Box style = {{height : 70, width : '33%'}}></Box>
@@ -45,7 +127,7 @@ const Pref_5_pref = ({navigation}) => {
         </Container>
         <Button 
             title = "다음"
-            onPress={() => navigation.navigate('landing')}
+            onPress={handleSubmitButton}
             style = {{ height : 83, width : '100%'}}
             isFinished = {Selected[0]+Selected[1]+Selected[2]+Selected[3]+Selected[4]+Selected[5]+Selected[6]+Selected[7]+Selected[8]}
         >
