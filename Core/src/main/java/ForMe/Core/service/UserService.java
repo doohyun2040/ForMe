@@ -31,7 +31,7 @@ public class UserService {
     }
 
     public User signUp(User user) {
-        if(findUser(user.getEmail()).isEmpty()) {
+        if(findUser(user.getEmail() ).isEmpty()) {
             System.out.println("user doesnt exist. signing up");
             userRepository.save(user);
             return user;
